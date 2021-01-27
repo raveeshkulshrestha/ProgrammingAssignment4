@@ -57,3 +57,9 @@ merge_test_train_mean_sd <- select(merge_test_train, contains("mean()") | contai
 ## 5. Extract average of each column group by activity, subject
 ## below is used to summarize all columns except the group by columns
 summarize_merge <- merge_test_train_mean_sd %>% group_by(activity, subject) %>% summarise(across(everything(), mean))
+
+# write the output into a file if file not present
+if(!file.exists("TidyDataOutput.txt")){
+  write.table(summarize_merge, file = "TidyDataOutput.txt", row.names = FALSE)  
+}
+
